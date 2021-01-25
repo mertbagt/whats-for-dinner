@@ -115,7 +115,8 @@ class App extends Component {
   state = {
     days: days,
     dishes: dishes,
-    assignments: assignments
+    assignments: assignments,
+    error: "",
   };
 
   handleReset = () => {
@@ -123,6 +124,12 @@ class App extends Component {
         assignments: []
     });
   };
+
+  handleSetDuplicateError = (duplicateError) => {
+    this.setState({
+      error: duplicateError
+    });
+  }
 
   handleDeleteItem = (dayId, dishId) => {
     this.setState({
@@ -168,6 +175,8 @@ class App extends Component {
       deleteItem: this.handleDeleteItem,
       addItem: this.handleAddItem,
       addAssignment: this.handleAddAssignment,
+      setDuplicateError: this.handleSetDuplicateError,
+      error: this.state.error,
     };
     return (
       <Context.Provider value={value}>

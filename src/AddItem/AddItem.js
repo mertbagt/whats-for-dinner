@@ -9,19 +9,28 @@ class AddItem extends Component {
   state = {
     dayId: 1,
     dishCategory: 'Drink',
-    dishName: {value: '', touched: false} 
+    dishName: {value: '', touched: false},
   };
 
   updateDay(day) {
+    const duplicateError = "";
+    this.context.setDuplicateError(duplicateError);
+
     day = parseInt(day, 10);
     this.setState({dayId: day})
   }
 
   updateCategory(category) {
+    const duplicateError = "";
+    this.context.setDuplicateError(duplicateError);
+    
     this.setState({dishCategory: category})
   }
 
   updateName(name) {
+    const duplicateError = "";
+    this.context.setDuplicateError(duplicateError);
+    
     this.setState({dishName: {value: name, touched: true}});
   }
 
@@ -37,7 +46,10 @@ class AddItem extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
+    
+    const duplicateError = "";
+    this.context.setDuplicateError(duplicateError);
+    
     const day = this.state.dayId;
     const category = this.state.dishCategory;
     const name = this.state.dishName.value;
@@ -71,26 +83,57 @@ class AddItem extends Component {
   }
 
   handleRandom(event) {
+//  implemented user feedback request to not have random button duplicate existing entries for the selected day    
+
+//  reset the related error; will be set later in this function if applicable
+
+    const duplicateError = "";
+    this.context.setDuplicateError(duplicateError);
+
+//  narrowing all dishes down to dishes by user selected category to generate possible results
+
     const dishes = this.context.dishes;
     const byCategory = dishes.filter(dish => dish.dishCategory === this.state.dishCategory);
-    console.log(byCategory);
 
-    const x = (byCategory.length);
-    let y = Math.floor(Math.random() * x);
-    console.log(y);
+//  building the current menu of dishes for the user selected day    
 
-    const day = this.state.dayId;
-    const id = byCategory[y].dishId;
+    const assignments = this.context.assignments
+    const dayAssignments = assignments.filter(assignment => assignment.dayId === this.state.dayId);
 
-    console.log('Day Id: ' + day);
-    console.log('Dish Id: ' + id);
+//  filtering the current menu out of the possible results
 
-    const newAssignment = {dayId: day, dishId: id}
-    this.context.addAssignment(newAssignment);
+    let noDuplicateByCategory = byCategory;
+
+    dayAssignments.forEach(assignment => {
+      noDuplicateByCategory = noDuplicateByCategory.filter(dish => assignment.dishId !== dish.dishId)
+    })
+
+//  check for no possible results and set error if true
+
+    if (noDuplicateByCategory.length === 0) {
+      let duplicateError = "No new non duplicate entries for this day and category; add more dishes"
+      this.context.setDuplicateError(duplicateError)
+    } else {
+
+//  randomly select a possible result and update the assignments table
+
+      const x = (noDuplicateByCategory.length);
+
+      let y = Math.floor(Math.random() * x);
+
+      const day = this.state.dayId;
+      const id = noDuplicateByCategory[y].dishId;
+      const newAssignment = {dayId: day, dishId: id}
+
+      this.context.addAssignment(newAssignment);
+    }
   }
 
   render() {
     const nameError = this.validateName();
+    const error = this.context.error
+          ? <div className="error">{this.context.error}</div>
+          : "";
 
     return (
       <section className='AddItem'>
@@ -136,6 +179,7 @@ class AddItem extends Component {
           </button>
           <div className="AddItem_error_group">
             {this.state.dishName.touched && <ValidationError message={nameError} />}
+            {error}
           </div>
         </form>
         <button

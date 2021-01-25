@@ -9,7 +9,9 @@ class Item extends Component {
     e.preventDefault();
     const dayId = this.props.day;
     const dishId = this.props.id;
+    const duplicateError = "";
     this.context.deleteItem(dayId, dishId)
+    this.context.setDuplicateError(duplicateError);
   }
 
   render() {

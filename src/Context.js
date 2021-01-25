@@ -8,4 +8,6 @@ export default React.createContext({
   deleteItem: () => {},
   addItem: () => {},
   addAssignment: () => {},
+  setDuplicateError: () => {},
+  error: "",
 })
