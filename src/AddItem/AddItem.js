@@ -56,7 +56,7 @@ class AddItem extends Component {
     const name = this.state.dishName.value;
 
     const currentDishes = this.context.dishes;
-    const x = (this.context.dishes.length - 1);
+    const x = (currentDishes.length - 1);
     let id = (currentDishes[x].dishId) + 1;
 
     let isDuplicate = false;
@@ -70,7 +70,11 @@ class AddItem extends Component {
       }
     }
 
-    const newDbAssignment = {day_id: day, dish_id: id}
+    const currentAssignments = this.context.assignments;
+    const y = (currentAssignments.length - 1);
+    let idAssignment = (currentAssignments[y].assignmentId) + 1;
+
+    const newDbAssignment = {id: idAssignment, day_id: day, dish_id: id}
     const newAssignment = {dayId: day, dishId: id}
     
 //  submit new dish entry only if not a duplicate
@@ -122,10 +126,8 @@ class AddItem extends Component {
     })
     .then(data => {
       this.setState({
-        dayId: 1,
-        dishCategory: 'Drink',
         dishName: {value: '', touched: false}
-      })
+      });
       this.context.addAssignment(newAssignment);   
     })
     .catch(error => {
@@ -176,9 +178,17 @@ class AddItem extends Component {
 
       const day = this.state.dayId;
       const id = noDuplicateByCategory[y].dishId;
+      let idAssignment = 1;
+
+      const z = (assignments.length - 1);
+      if (assignments.length > 0) {
+        idAssignment = (assignments[z].assignmentId) + 1;
+      }
+
+      const newDbAssignment = {id: idAssignment, day_id: day, dish_id: id}
       const newAssignment = {dayId: day, dishId: id}
 
-      this.context.addAssignment(newAssignment);
+      this.handleAssignment(newDbAssignment, newAssignment);
     }
   }
 

@@ -172,9 +172,22 @@ class App extends Component {
   }
 
   handleAddAssignment = (newAssignment) => {
-    this.setState({
-      assignments: [...this.state.assignments, newAssignment],
+//    this.setState({
+//      assignments: [...this.state.assignments, newAssignment],
+//    })
+    fetch(`${config.API_ENDPOINT}/assignments`)
+      .then(res => {
+        if(!res.ok) {
+          throw new Error('Something went wrong, please try again later');
+        }
+        return res.json();
+      })  
+    .then(assignments => {
+        this.setState({assignments});
     })
+    .catch(error => {
+        console.error({error});
+    });
   }
 
   renderNavRoutes() {
