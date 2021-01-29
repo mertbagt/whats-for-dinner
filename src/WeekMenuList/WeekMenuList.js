@@ -22,7 +22,7 @@ class WeekMenuList extends Component {
   render() {
     const { dishes, assignments } = this.context
     const dayMenu = []
-
+  
     const dayAssignments = assignments.filter(assignment => assignment.dayId === this.props.day);
 
     dayAssignments.forEach(assignment => {
@@ -30,7 +30,8 @@ class WeekMenuList extends Component {
 
         if (assignment.dishId === dish.dishId) {
           let menuItem = {};
-
+          
+          menuItem["assignmentId"] = assignment.assignmentId;
           menuItem["dishId"] = dish.dishId;
           menuItem["dishCategory"] = dish.dishCategory;
           menuItem["dishName"] = dish.dishName;
@@ -52,7 +53,7 @@ class WeekMenuList extends Component {
         <table className={this.props.name + "__list"} id={this.props.name + "__id"}>
           <tbody>
             {dayMenu.map((menuItem, index) => 
-              <Item key={index} subkey={index} id={menuItem.dishId} category={menuItem.dishCategory} name={menuItem.dishName} day={this.props.day}></Item>
+              <Item key={index} subkey={index} id={menuItem.dishId} assignment={menuItem.assignmentId} category={menuItem.dishCategory} name={menuItem.dishName} day={this.props.day}></Item>
             )}
           </tbody>
         </table>

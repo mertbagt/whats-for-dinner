@@ -4,8 +4,10 @@ import Nav from '../Nav/Nav';
 import About from '../About/About';
 import WeekMenu from '../WeekMenu/WeekMenu';
 import Context from '../Context';
+import config from '../config';
 import './App.css';
 
+/*
 const days = [
   {
     dayId: 1,
@@ -36,7 +38,8 @@ const days = [
     dayName: 'Saturday'
   }
 ];
-
+*/
+/*
 const dishes = [
   {
     dishId: 0,
@@ -79,7 +82,8 @@ const dishes = [
     dishName: 'ice cream'
   }
 ];
-
+*/
+/*
 const assignments = [
   {
     dayId: 1,
@@ -110,14 +114,38 @@ const assignments = [
     dishId: 6
   },  
 ];
+*/
 
 class App extends Component {
   state = {
-    days: days,
-    dishes: dishes,
-    assignments: assignments,
+    days: [],
+    dishes: [],
+    assignments: [],
     error: "",
   };
+
+  componentDidMount() {
+    Promise.all([
+      fetch(`${config.API_ENDPOINT}/days`),
+      fetch(`${config.API_ENDPOINT}/dishes`),
+      fetch(`${config.API_ENDPOINT}/assignments`),
+    ])
+        .then(([daysRes, dishesRes, assignmentsRes]) => {
+            if (!daysRes.ok)
+              return daysRes.json().then(e => Promise.reject(e));
+            if (!dishesRes.ok)
+              return dishesRes.json().then(e => Promise.reject(e));
+            if (!assignmentsRes.ok)
+              return assignmentsRes.json().then(e => Promise.reject(e));     
+            return Promise.all([daysRes.json(), dishesRes.json(), assignmentsRes.json()]);
+        })
+        .then(([days, dishes, assignments]) => {
+            this.setState({days, dishes, assignments});
+        })
+        .catch(error => {
+            console.error({error});
+        });
+  }
 
   handleReset = () => {
     this.setState({

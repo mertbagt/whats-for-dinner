@@ -1,6 +1,7 @@
 import  React, {Component} from 'react';
 import Context from '../Context';
 import ValidationError from '../ValidationError/ValidationError';
+import config from '../config';
 import './AddItem.css';
 
 class AddItem extends Component {
@@ -69,17 +70,69 @@ class AddItem extends Component {
       }
     }
 
+    const newDbAssignment = {day_id: day, dish_id: id}
+    const newAssignment = {dayId: day, dishId: id}
+    
 //  submit new dish entry only if not a duplicate
 
     if (isDuplicate === false) {
+      const newDbItem = {id: id, dish_category: category, dish_name: name}
       const newItem = {dishId: id, dishCategory: category, dishName: name}
-      this.context.addItem(newItem);
+
+      fetch(`${config.API_ENDPOINT}/dishes`, {
+        method: 'POST',
+        body: JSON.stringify(newDbItem),
+        headers: {
+          'content-type': 'application/json'
+        },
+      })
+      .then(res => {
+        if(!res.ok) {
+          throw new Error('Something went wrong, please try again later');
+        }
+        return res.json();
+      })
+      .then(data => {
+        this.context.addItem(newItem);
+        this.handleAssignment(newDbAssignment, newAssignment);
+      })  
+      .catch(error => {
+        this.setState({
+          error: error.message
+        });
+      })   
+    } else {
+      this.handleAssignment(newDbAssignment, newAssignment);
     }
+  }
 
-//  submit new assignemt
-
-    const newAssignment = {dayId: day, dishId: id}
-    this.context.addAssignment(newAssignment);
+  handleAssignment(newDbAssignment, newAssignment) {
+    fetch(`${config.API_ENDPOINT}/assignments`, {
+      method: 'POST',
+      body: JSON.stringify(newDbAssignment),
+      headers: {
+        'content-type': 'application/json'
+      },
+    })
+    .then(res => {
+      if(!res.ok) {
+        throw new Error('Something went wrong, please try again later');
+      }
+      return res.json();
+    })
+    .then(data => {
+      this.setState({
+        dayId: 1,
+        dishCategory: 'Drink',
+        dishName: {value: '', touched: false}
+      })
+      this.context.addAssignment(newAssignment);   
+    })
+    .catch(error => {
+      this.setState({
+        error: error.message
+      });
+    })
   }
 
   handleRandom(event) {
@@ -137,7 +190,7 @@ class AddItem extends Component {
 
     return (
       <section className='AddItem'>
-        <form className="AddItemForm" onSubmit={e => this.handleSubmit(e)}>
+        <form id="AddItemForm" className="AddItemForm" onSubmit={e => this.handleSubmit(e)}>
           <h3>New Item:</h3>
           <select 
             name="day"
@@ -169,6 +222,7 @@ class AddItem extends Component {
             id="name"
             onChange={e => this.updateName(e.target.value)}
             placeholder="enter a dish"
+            value={this.state.dishName.value}
             required
           />
           <button
