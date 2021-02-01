@@ -1,0 +1,12 @@
+.WeekManu {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+/* responsive media code */
+@media all and (min-width: 500px) {
+  .WeekManu {
+    flex-direction: row;
+  } 
+}

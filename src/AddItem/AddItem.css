@@ -1,0 +1,58 @@
+.AddItem {
+  background-color: #6665dd;
+  z-index: 5;
+}
+
+.AddItemFormName {
+  color: #F8F4E3;  
+  text-align: center;
+  font-size: 20px;
+  padding: 10px
+}
+
+.AddItemFormGroup, .AddItem_error_group {
+  text-align: center;
+}
+
+.AddItemFormFlex {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row; 
+}
+
+label {
+  color: #F8F4E3;    
+  flex: 1
+}
+
+select {
+  padding: 1px
+}
+
+select, input {
+  flex: 2
+}
+
+.AddNote_button, .AddNote_randomItem {
+  text-align: center;
+}
+
+.AddNote_randomItem {
+  padding-bottom: 5px
+}
+
+/* responsive media code */
+@media all and (min-width: 660px) {
+  .AddItemFormFlex {
+    display: inline;
+  }
+
+  label {
+    padding-left: 15px;
+    padding-right: 3px;
+  }
+
+  .AddItem_input {
+    margin-right: 10px;
+  }
+}

@@ -20,9 +20,11 @@ class About extends Component {
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or</p>
         <p>&nbsp;&nbsp;&nbsp;select a day, a category and press the random button</p>
         <br/>
+        <p>Click on the '-' button to remove a dish from its respective day</p>
+        <br/>
+        <p>On smaller display widths:</p>
         <p>Click on the name of a day to shrink or expand it</p>
         <br/>
-        <p>Click on the '-' button to remove a dish from its respective day</p>
       </>
     );
   }  

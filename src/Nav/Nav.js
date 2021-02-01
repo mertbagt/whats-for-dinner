@@ -33,15 +33,21 @@ class Nav extends Component {
     return (
       <>
         <h1>What's For Dinner</h1>
-        <Link to={`/`}>about</Link>
-        &nbsp;
-        <Link to={`/weekmenu`}>menu</Link>
-        &nbsp;
-        <button
-          className='Reset'
-          type='button'
-          onClick={this.handleClickReset}
-        >reset</button>
+        <div className={"navbar"}>
+          <div className={"navitem"}>
+            <Link to={`/`}>about</Link>
+          </div>
+          <div className={"navitem"}>
+            <Link to={`/weekmenu`}>menu</Link>
+          </div>
+          <div className={"navitem"}>
+            <button
+              className='Reset'
+              type='button'
+              onClick={this.handleClickReset}
+            >reset</button>
+          </div>
+        </div>
       </>
     );
   }  

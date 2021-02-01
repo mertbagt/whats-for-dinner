@@ -71,6 +71,19 @@ class AddItem extends Component {
     }
 
     const currentAssignments = this.context.assignments;
+
+//  handle case where assignments are empty/reset by adding a placeholder
+
+    if (currentAssignments.length === 0) {
+      currentAssignments.push({
+        assignmentId: 1,
+        dayId: 1,
+        dishId: 0
+      })
+    }
+
+//  create assignment to be added to database and context
+
     const y = (currentAssignments.length - 1);
     let idAssignment = (currentAssignments[y].assignmentId) + 1;
 
@@ -200,58 +213,71 @@ class AddItem extends Component {
 
     return (
       <section className='AddItem'>
-        <form id="AddItemForm" className="AddItemForm" onSubmit={e => this.handleSubmit(e)}>
-          <h3>New Item:</h3>
-          <select 
-            name="day"
-            id="day"
-            onChange={e => this.updateDay(e.target.value)}
-          >
-            <option value="1">Sunday</option>
-            <option value="2">Monday</option>
-            <option value="3">Tuesday</option>
-            <option value="4">Wednesday</option>
-            <option value="5">Thursday</option>
-            <option value="6">Friday</option>
-            <option value="7">Saturday</option>
-          </select>
-          <select 
-            name="category"
-            id="category"
-            onChange={e => this.updateCategory(e.target.value)}
-          >
-            <option value="Drink">Drink</option>
-            <option value="Main">Main</option>
-            <option value="Side">Side</option>
-            <option value="Dessert">Dessert</option>
-          </select>                
-          <input
-            type="text"
-            className="AddItem_input"
-            name="name"
-            id="name"
-            onChange={e => this.updateName(e.target.value)}
-            placeholder="enter a dish"
-            value={this.state.dishName.value}
-            required
-          />
-          <button
-            type="submit"
-            className="AddNote_button"
-            disabled={this.validateName()}
-          >Save
-          </button>
+        <form id="AddItemForm" className="AddItemForm" onSubmit={e => this.handleSubmit(e)}> 
+          <div className='AddItemFormName'>New Item</div> 
+          <div className='AddItemFormGroup'>
+            <div className="AddItemFormFlex">
+            <label htmlFor="day">Day: </label>
+            <select 
+              name="day"
+              id="day"
+              onChange={e => this.updateDay(e.target.value)}
+            >
+              <option value="1">Sunday</option>
+              <option value="2">Monday</option>
+              <option value="3">Tuesday</option>
+              <option value="4">Wednesday</option>
+              <option value="5">Thursday</option>
+              <option value="6">Friday</option>
+              <option value="7">Saturday</option>
+            </select>
+            </div>
+            <div className="AddItemFormFlex">
+            <label htmlFor="category">Category: </label>
+            <select 
+              name="category"
+              id="category"
+              onChange={e => this.updateCategory(e.target.value)}
+            >
+              <option value="Drink">Drink</option>
+              <option value="Main">Main</option>
+              <option value="Side">Side</option>
+              <option value="Dessert">Dessert</option>
+            </select>
+            </div>
+            <div className="AddItemFormFlex">
+            <label htmlFor="name">Dish: </label>                
+            <input
+              type="text"
+              className="AddItem_input"
+              name="name"
+              id="name"
+              onChange={e => this.updateName(e.target.value)}
+              placeholder="enter a dish"
+              value={this.state.dishName.value}
+              required
+            /> 
+            </div>                 
+            <button
+              type="submit"
+              className="AddNote_button"
+              disabled={this.validateName()}
+            >Save
+            </button>
+          </div>
           <div className="AddItem_error_group">
             {this.state.dishName.touched && <ValidationError message={nameError} />}
             {error}
           </div>
         </form>
+        <div className="AddNote_randomItem">
         <button
             type="button"
             className="AddNote_random"
             onClick={e => this.handleRandom(e)}
           >Random
         </button>
+        </div>
       </section>
     );
   }  

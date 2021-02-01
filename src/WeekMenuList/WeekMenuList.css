@@ -1,0 +1,37 @@
+.DayList {
+  background-color: #9b9ece;
+  flex: 1;
+  margin: 5px;
+  min-width: 200px;
+}
+
+h2 {
+  text-align: center;
+}
+
+h2 a {
+  text-decoration: none;
+}
+
+.hidden, .hidden__expand {
+  display: none;
+}
+
+.expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+  margin-bottom: 5px;
+}
+
+/* responsive media code */
+@media all and (min-width: 500px) {
+  .hidden {
+    display: block;
+  }
+
+  .expand {
+    display: none;
+  }
+}

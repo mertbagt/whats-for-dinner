@@ -13,9 +13,11 @@ class WeekMenu extends Component {
     return (
       <>
         <AddItem></AddItem>
-        {days.map(day => 
-          <WeekMenuList key={day.dayName} day={day.dayId} name={day.dayName}></WeekMenuList>    
-        )}
+        <div className="WeekManu">
+          {days.map(day => 
+            <WeekMenuList key={day.dayName} day={day.dayId} name={day.dayName}></WeekMenuList>    
+          )}
+        </div>
       </>
     );
   }  

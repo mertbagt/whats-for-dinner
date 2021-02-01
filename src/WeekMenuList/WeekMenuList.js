@@ -11,11 +11,22 @@ class WeekMenuList extends Component {
     e.preventDefault();
 
     let y = document.getElementById(this.props.name + "__id")
-    
+    let z = document.getElementById(this.props.name + "__expand")
+/*    
     if (y.style.display === "none") {
       y.style.display = "block";
+      y.style.backgroundColor = "#9b9ece";
     } else {
       y.style.display = "none";
+      y.style.backgroundColor = "#acadbc";
+    }
+*/  
+    if (y.className === "hidden") {
+      y.className = "none";
+      z.className = "hidden__expand"
+    } else {
+      y.className = "hidden"
+      z.className = "none__expand"
     }
   }
 
@@ -41,7 +52,7 @@ class WeekMenuList extends Component {
     })
 
     return (
-      <div>
+      <div className="DayList">
         <h2>
           <Link 
             to={`/weekmenu`}
@@ -50,7 +61,16 @@ class WeekMenuList extends Component {
             {this.props.name}
           </Link>  
         </h2>
-        <table className={this.props.name + "__list"} id={this.props.name + "__id"}>
+        <div className="expand">
+          <button 
+            id={this.props.name + "__expand"}
+            onClick={this.handleMenuToggle}
+            className="hidden__expand"
+          >
+            v
+          </button>
+        </div>
+        <table id={this.props.name + "__id"}>
           <tbody>
             {dayMenu.map((menuItem, index) => 
               <Item key={index} subkey={index} id={menuItem.dishId} assignment={menuItem.assignmentId} category={menuItem.dishCategory} name={menuItem.dishName} day={this.props.day}></Item>
