@@ -30,11 +30,22 @@ select {
 }
 
 select, input {
-  flex: 2
+  flex: 2;
+}
+
+select, input, .AddNote_button, .AddNote_random {
+  font-size: 16px;
+  border: 1px solid #000000;
+  border-radius: 10px;
 }
 
 .AddNote_button, .AddNote_randomItem {
   text-align: center;
+}
+
+.AddNote_button, .AddNote_random {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 .AddNote_randomItem {

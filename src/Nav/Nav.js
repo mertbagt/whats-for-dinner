@@ -41,11 +41,11 @@ class Nav extends Component {
             <Link to={`/weekmenu`}>menu</Link>
           </div>
           <div className={"navitem"}>
-            <button
+            <Link
+              to={`/weekmenu`}
               className='Reset'
-              type='button'
               onClick={this.handleClickReset}
-            >reset</button>
+            >reset</Link>
           </div>
         </div>
       </>

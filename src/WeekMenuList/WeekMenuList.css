@@ -3,6 +3,8 @@
   flex: 1;
   margin: 5px;
   min-width: 200px;
+  border-radius: 15px;
+  padding-bottom: 5px;
 }
 
 h2 {
@@ -23,6 +25,13 @@ h2 a {
   justify-content: center;
   margin-top: -10px;
   margin-bottom: 5px;
+}
+
+.expand button {
+  border-radius: 50%;
+  border: 1px solid #000000;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 /* responsive media code */

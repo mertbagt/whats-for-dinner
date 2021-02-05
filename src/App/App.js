@@ -7,115 +7,6 @@ import Context from '../Context';
 import config from '../config';
 import './App.css';
 
-/*
-const days = [
-  {
-    dayId: 1,
-    dayName: 'Sunday'
-  },
-  {
-    dayId: 2,
-    dayName: 'Monday'
-  },
-  {
-    dayId: 3,
-    dayName: 'Tuesday'
-  },
-  {
-    dayId: 4,
-    dayName: 'Wednesday'
-  },
-  {
-    dayId: 5,
-    dayName: 'Thursday'
-  },
-  {
-    dayId: 6,
-    dayName: 'Friday'
-  },
-  {
-    dayId: 7,
-    dayName: 'Saturday'
-  }
-];
-*/
-/*
-const dishes = [
-  {
-    dishId: 0,
-    dishCategory: 'Drink',
-    dishName: 'water'
-  },
-  {
-    dishId: 1,
-    dishCategory: 'Drink',
-    dishName: 'juice'
-  },
-  {
-    dishId: 2,
-    dishCategory: 'Main',
-    dishName: 'spaghetti'
-  },
-  {
-    dishId: 3,
-    dishCategory: 'Main',
-    dishName: 'steak'
-  },
-  {
-    dishId: 4,
-    dishCategory: 'Main',
-    dishName: 'pizza'
-  },
-  {
-    dishId: 5,
-    dishCategory: 'Side',
-    dishName: 'salad'
-  },
-  {
-    dishId: 6,
-    dishCategory: 'Side',
-    dishName: 'green beans'
-  },
-  {
-    dishId: 7,
-    dishCategory: 'Dessert',
-    dishName: 'ice cream'
-  }
-];
-*/
-/*
-const assignments = [
-  {
-    dayId: 1,
-    dishId: 0
-  },
-  {
-    dayId: 1,
-    dishId: 2
-  },
-  {
-    dayId: 1,
-    dishId: 5
-  },
-  {
-    dayId: 1,
-    dishId: 7
-  },
-  {
-    dayId: 2,
-    dishId: 1
-  },
-  {
-    dayId: 2,
-    dishId: 3
-  },
-  {
-    dayId: 2,
-    dishId: 6
-  },  
-];
-*/
-
 class App extends Component {
   state = {
     days: [],
@@ -172,9 +63,6 @@ class App extends Component {
   }
 
   handleAddAssignment = (newAssignment) => {
-//    this.setState({
-//      assignments: [...this.state.assignments, newAssignment],
-//    })
     fetch(`${config.API_ENDPOINT}/assignments`)
       .then(res => {
         if(!res.ok) {

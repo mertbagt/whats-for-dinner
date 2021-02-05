@@ -1,7 +1,5 @@
 nav {
-/*    overflow: hidden; */
   background-color: #473bf0;
-/*    margin-bottom: -20px; */
   z-index: 10;
 }
 
@@ -45,7 +43,6 @@ nav a {
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
-/*    margin-bottom: -20px; */
   }
 
   nav h1 {

@@ -12,15 +12,7 @@ class WeekMenuList extends Component {
 
     let y = document.getElementById(this.props.name + "__id")
     let z = document.getElementById(this.props.name + "__expand")
-/*    
-    if (y.style.display === "none") {
-      y.style.display = "block";
-      y.style.backgroundColor = "#9b9ece";
-    } else {
-      y.style.display = "none";
-      y.style.backgroundColor = "#acadbc";
-    }
-*/  
+
     if (y.className === "hidden") {
       y.className = "none";
       z.className = "hidden__expand"
@@ -62,12 +54,12 @@ class WeekMenuList extends Component {
           </Link>  
         </h2>
         <div className="expand">
-          <button 
+          <button
             id={this.props.name + "__expand"}
             onClick={this.handleMenuToggle}
             className="hidden__expand"
           >
-            v
+            +
           </button>
         </div>
         <table id={this.props.name + "__id"}>
